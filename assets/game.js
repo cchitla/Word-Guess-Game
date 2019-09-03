@@ -24,6 +24,8 @@ let userGuessArray = [];
 let wordLength;
 let wordArray = [];
 let randomWord;
+let randomWordStr = [];
+
 
 
 
@@ -40,15 +42,20 @@ const displayCurrentWord = document.getElementById("current-word");
 
 
 function init() {
+    //choses a word randomly
     let wordArray = ["word1", "wordtwo", "wordtres", "wordquatro", "fifthword"];
     let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+    //replaces the word as first object in the randomword array
+    randomWordStr[0] = randomWord;
     guessesRemaining = [15];
     userGuessArray = [];
+
+    console.log(randomWord);
 
     //get length of random word and display corresponding empty spaces
     let wordLength = randomWord.length;
     let blankWord = " _ "
-    console.log(typeof(wordLength));
+    //console.log(typeof(wordLength));
     displayCurrentWord.textContent = blankWord.repeat(wordLength);
 
 }
@@ -67,15 +74,28 @@ document.onkeyup = function() {
     //display userGuessArray
     displayUserGuesses.textContent = userGuessArray;
 
+    //remaining guesses countdown
     guessesRemaining = guessesRemaining - 1;
     displayRemaining.textContent = guessesRemaining;
 
+    console.log(randomWordStr);
+    //check if key press is in the random word
+    /*
+    
+    if (userKey === letter of randomWord) {
+
+    }
+
+    */
 
 
+    //resets game to init if run out of guesses
     if (userGuessArray.length === 15) {
         init();
         alert("You didn't guess the word");
     }
+
+    // if word guessed, wins++ and init(); 
 
 
 
