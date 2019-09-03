@@ -19,7 +19,12 @@ let currentWord;
 let guessesRemaining = [15];
 let lettersGuessed;
 
-userGuessArray = [];
+let userGuessArray = [];
+
+let wordLength;
+let wordArray = [];
+let randomWord;
+
 
 
 const displayWins = document.getElementById("wins");
@@ -30,17 +35,28 @@ displayRemaining.textContent = guessesRemaining;
 
 const displayUserGuesses = document.getElementById("user-guesses");
 
-
-
-wordArray = ["word1", "wordtwo", "wordtres", "wordquatro", "fifthword"];
-let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-
-console.log(randomWord);
-console.log(randomWord.length);
+const displayCurrentWord = document.getElementById("current-word");
 
 
 
-document.onkeypress = function() {
+function init() {
+    let wordArray = ["word1", "wordtwo", "wordtres", "wordquatro", "fifthword"];
+    let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
+    guessesRemaining = [15];
+    userGuessArray = [];
+
+    //get length of random word and display corresponding empty spaces
+    let wordLength = randomWord.length;
+    let blankWord = " _ "
+    console.log(typeof(wordLength));
+    displayCurrentWord.textContent = blankWord.repeat(wordLength);
+
+}
+
+init();
+
+
+document.onkeyup = function() {
 
     userkey = event.key;
 
@@ -51,10 +67,15 @@ document.onkeypress = function() {
     //display userGuessArray
     displayUserGuesses.textContent = userGuessArray;
 
-    
+    guessesRemaining = guessesRemaining - 1;
+    displayRemaining.textContent = guessesRemaining;
 
 
 
+    if (userGuessArray.length === 15) {
+        init();
+        alert("You didn't guess the word");
+    }
 
 
 
