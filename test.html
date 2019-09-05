@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tests</title>
+</head>
+<body>
+    <div>Current word: <br>
+        <span id="current-word"></span>
+    </div>
+    <script>
+        
+    let word = "teststring";
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+    //stores each position in array
+    let wordArray = [];
+    let blankArray = [];
+    let blankSpace = " _ ";
+
+    let displayWord = document.getElementById("current-word");
+
+    for (i = 0; i < word.length; i++) {
+        wordArray.push(word.charAt(i));
+ 
+    }
+
+    blankArray.push(blankSpace.repeat(word.length));
+    displayWord.textContent = blankArray;
+
+    console.log(wordArray);
+    console.log(blankArray);
+
+    
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+    
+    document.onkeyup = function () {
+
+        userKey = event.key
+
+        console.log(userKey);
+
+    //cycle through string
+       for (i = 0; i < wordArray.length; i++) {
+            
+           if (userKey === word[i]) {
+               console.log("you guessed a letter in the word")
+               blankArray.splice(i, 1, userKey);
+               displayWord.textContent = blankArray;
+            }
+        }
+        
+    }
+        
+        
+    
+    
+    </script>
+
+</body>
+</html>

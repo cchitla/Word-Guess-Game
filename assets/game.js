@@ -1,17 +1,7 @@
 /*
-on page load:
-    - randonly choose word from wordArray
-    - put individual letters from seletected word into lettersArray
-    - correctLetters array: new array created 
-    - display x number of "_" for number of letters in selected word under #current-word
-
 on key press:
     - if keypress === (any letter in lettersArray)
         - then display that letter in correct position
-
-
-
-
 */
 
 let wins = 0;
@@ -24,7 +14,9 @@ let userGuessArray = [];
 let wordLength;
 let wordArray = [];
 let randomWord;
+
 let randomWordStr = [];
+let wordLettersArray = [];
 
 
 
@@ -45,18 +37,24 @@ function init() {
     //choses a word randomly
     let wordArray = ["word1", "wordtwo", "wordtres", "wordquatro", "fifthword"];
     let randomWord = wordArray[Math.floor(Math.random() * wordArray.length)];
-    //replaces the word as first object in the randomword array
+    //replaces the word as first object in the random word array
     randomWordStr[0] = randomWord;
+    //
     guessesRemaining = [15];
     userGuessArray = [];
 
-    console.log(randomWord);
 
-    //get length of random word and display corresponding empty spaces
-    let wordLength = randomWord.length;
-    let blankWord = " _ "
-    //console.log(typeof(wordLength));
-    displayCurrentWord.textContent = blankWord.repeat(wordLength);
+    console.log(randomWord);
+    console.log(randomWordStr);
+    
+
+    //store empty spaces of word in array
+    for (i = 0; i < randomWord.length; i++) {
+        wordLettersArray[i] = "_";
+    }
+
+    displayCurrentWord.textContent = wordLettersArray.join(" ");
+    
 
 }
 
@@ -65,25 +63,26 @@ init();
 
 document.onkeyup = function() {
 
-    userkey = event.key;
-
     //store key press in userGuessArray
-    userGuessArray.push(" " + userkey);
-    console.log(userGuessArray);
+    userkey = event.key;
+    if (event.keyCode >= 65 && event.keyCode <= 90) {
+        userGuessArray.push(" " + userkey);
+        console.log(userGuessArray);
 
-    //display userGuessArray
-    displayUserGuesses.textContent = userGuessArray;
+        //display userGuessArray
+        displayUserGuesses.textContent = userGuessArray;
 
-    //remaining guesses countdown
-    guessesRemaining = guessesRemaining - 1;
-    displayRemaining.textContent = guessesRemaining;
+        //remaining guesses countdown
+        guessesRemaining = guessesRemaining - 1;
+        displayRemaining.textContent = guessesRemaining;
+    }
 
-    console.log(randomWordStr);
+
+
     //check if key press is in the random word
     /*
-    
-    if (userKey === letter of randomWord) {
-
+    cycle through string of word
+    if userKey === one of the letters, then print at array[i]
     }
 
     */
@@ -95,6 +94,7 @@ document.onkeyup = function() {
         alert("You didn't guess the word");
     }
 
+   
     // if word guessed, wins++ and init(); 
 
 
